@@ -49,10 +49,17 @@ namespace UserGenerator
             Console.WriteLine("Word list from appsettings.json: " + settingsConfiguration.WordListFilePath);
             Console.WriteLine("API Secret from secrets.json: " + settingsConfiguration.ApiSecret);
 
+            string currentDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            Console.WriteLine("Current Directory: " + currentDirectory);
+
             /*-----------------------------------------------------------------------------------------------*/
             IEnumerable<string> listOfWords = Helpers.FileReaderForWordList.GetModifierWordList(settingsConfiguration.WordListFilePath);
             IEnumerable<string> listOfFirstNames = Helpers.FileReaderForNameList.GetNameList(settingsConfiguration.NameFirstFilePath);
             IEnumerable<string> listOfLastNames = Helpers.FileReaderForNameList.GetNameList(settingsConfiguration.NameLastFilePath);
+
+            Console.WriteLine("Marker Words Count:" + listOfWords.Count().ToString());
+            Console.WriteLine("First Names Count:" + listOfFirstNames.Count().ToString());
+            Console.WriteLine("Last Names Count:" + listOfLastNames.Count().ToString());
 
             /*-----------------------------------------------------------------------------------------------*/
             Console.WriteLine("Application End...");
