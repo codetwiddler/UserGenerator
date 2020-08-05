@@ -6,7 +6,7 @@ using System.Text;
 
 namespace UserGenerator.Helpers
 {
-    class FileReaderForWordList
+    class GetWordListFromFile
     {
         internal static IEnumerable<string> GetModifierWordList(string path)
         {

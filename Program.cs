@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using UserGenerator.Entities;
+using UserGenerator.Helpers;
 
 //C:\Users\cortex\AppData\Roaming\Microsoft\UserSecrets houses our secrets.json file
 
@@ -16,6 +18,7 @@ using System.Linq;
 //https://ballardsoftware.com/adding-appsettings-json-configuration-to-a-net-core-console-application/
 //https://www.entityframeworktutorial.net/efcore/entity-framework-core-console-application.aspx
 //https://gunnarpeipman.com/ef-core-console-application/
+//https://medium.com/@martinrybak/how-to-mock-singletons-and-static-methods-in-unit-tests-cbe915933c7d
 
 
 namespace UserGenerator
@@ -40,6 +43,8 @@ namespace UserGenerator
             configuration.GetSection("AccountSettings").Bind(settingsConfiguration);
             configuration.GetSection("FileSettings").Bind(settingsConfiguration);
             configuration.GetSection("ConnectionStrings").Bind(settingsConfiguration);
+            configuration.GetSection("AppControlSettings").Bind(settingsConfiguration);
+            //TODO: determine a way to iterate over setting's children.
 
             /*-----------------------------------------------------------------------------------------------*/
             Console.WriteLine("Account Name from appsettings.json: " + settingsConfiguration.AccountName);
@@ -48,18 +53,22 @@ namespace UserGenerator
             Console.WriteLine("Last name list from appsettings.json: " + settingsConfiguration.NameLastFilePath);
             Console.WriteLine("Word list from appsettings.json: " + settingsConfiguration.WordListFilePath);
             Console.WriteLine("API Secret from secrets.json: " + settingsConfiguration.ApiSecret);
+            Console.WriteLine("Population Size: " + settingsConfiguration.PopulationSize);
 
             string currentDirectory = System.Reflection.Assembly.GetExecutingAssembly().Location;
             Console.WriteLine("Current Directory: " + currentDirectory);
 
             /*-----------------------------------------------------------------------------------------------*/
-            IEnumerable<string> listOfWords = Helpers.FileReaderForWordList.GetModifierWordList(settingsConfiguration.WordListFilePath);
-            IEnumerable<string> listOfFirstNames = Helpers.FileReaderForNameList.GetNameList(settingsConfiguration.NameFirstFilePath);
-            IEnumerable<string> listOfLastNames = Helpers.FileReaderForNameList.GetNameList(settingsConfiguration.NameLastFilePath);
+            IEnumerable<string> listOfWords = Helpers.GetWordListFromFile.GetModifierWordList(settingsConfiguration.WordListFilePath);
+            IEnumerable<string> listOfFirstNames = Helpers.GetNameListFromFile.GetNameList(settingsConfiguration.NameFirstFilePath);
+            IEnumerable<string> listOfLastNames = Helpers.GetNameListFromFile.GetNameList(settingsConfiguration.NameLastFilePath);
 
             Console.WriteLine("Marker Words Count:" + listOfWords.Count().ToString());
             Console.WriteLine("First Names Count:" + listOfFirstNames.Count().ToString());
             Console.WriteLine("Last Names Count:" + listOfLastNames.Count().ToString());
+
+            /*-----------------------------------------------------------------------------------------------*/
+            IEnumerable<Person> people = PersonGenerator.GetPeople(listOfWords.ToList(), listOfFirstNames.ToList(), listOfLastNames.ToList(), settingsConfiguration.PopulationSize);
 
             /*-----------------------------------------------------------------------------------------------*/
             Console.WriteLine("Application End...");

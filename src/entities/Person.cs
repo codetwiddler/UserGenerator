@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 namespace UserGenerator.Entities
 {
@@ -7,8 +8,7 @@ namespace UserGenerator.Entities
         public Guid Id { get;  set; }
         public string NameFirst { get; set; }
         public string NameLast { get; set; }
-        public string MarkerWordOne { get; set; }
-        public string MarkerWordTwo { get; set; }
+        public string MarkerWord { get; set; }
         public bool MarkedForDelete { get; set; }
     }
 }

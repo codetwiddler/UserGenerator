@@ -14,5 +14,7 @@ namespace UserGenerator
         public string WordListFilePath { get; set; }
         public string NameFirstFilePath { get; set; }
         public string NameLastFilePath { get; set; }
+
+        public int PopulationSize { get; set; }
     }
 }

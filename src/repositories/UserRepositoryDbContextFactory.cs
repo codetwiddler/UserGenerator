@@ -7,26 +7,26 @@ using System.Text;
 
 namespace UserGenerator.Repositories
 {
-    public class UserGeneratorDbContextFactory : IDesignTimeDbContextFactory<UserGeneratorDbContext>
+    public class UserRepositoryDbContextFactory : IDesignTimeDbContextFactory<UserRepositoryDbContext>
     {
         private static string connectionString;
         
-        public UserGeneratorDbContext CreateDbContext()
+        public UserRepositoryDbContext CreateDbContext()
         {
             return CreateDbContext(null);
         }
 
-        public UserGeneratorDbContext CreateDbContext(string[] args)
+        public UserRepositoryDbContext CreateDbContext(string[] args)
         {
             if (string.IsNullOrEmpty(connectionString))
             {
                 LoadConnectionString();
             }
 
-            var builder = new DbContextOptionsBuilder<UserGeneratorDbContext>();
+            var builder = new DbContextOptionsBuilder<UserRepositoryDbContext>();
             builder.UseSqlServer(connectionString);
 
-            return new UserGeneratorDbContext(builder.Options);
+            return new UserRepositoryDbContext(builder.Options);
         }
 
         private static void LoadConnectionString()

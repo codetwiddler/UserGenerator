@@ -6,9 +6,9 @@ using UserGenerator.Entities;
 
 namespace UserGenerator.Repositories
 {
-    public class UserGeneratorDbContext : DbContext
+    public class UserRepositoryDbContext : DbContext
     {
-        public UserGeneratorDbContext(DbContextOptions<UserGeneratorDbContext> options)
+        public UserRepositoryDbContext(DbContextOptions<UserRepositoryDbContext> options)
             : base(options)
         {
 

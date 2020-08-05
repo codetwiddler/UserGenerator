@@ -6,7 +6,7 @@ using System.Text;
 
 namespace UserGenerator.Helpers
 {
-    class FileReaderForNameList
+    class GetNameListFromFile
     {
         internal static IEnumerable<string> GetNameList(string path)
         {
