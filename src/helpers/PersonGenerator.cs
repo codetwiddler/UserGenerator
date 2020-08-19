@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UserGenerator.Entities;
 using UserGenerator.Helpers;
@@ -13,15 +14,13 @@ namespace UserGenerator.Helpers
             List<Person> people = new List<Person>();
 
             for (int i = 0; i < populationSize; i++ ) {
-                string randomWord = listOfWords.RandomElement();
-                string randomFirstName = listOfFirstNames.RandomElement();
-                string randomLastName = listOfLastNames.RandomElement();
 
+                //this is not exactly securely random like, at all... But it's fast.
                 people.Add(new Person()
                 {
-                    MarkerWord = randomWord,
-                    NameFirst = randomFirstName,
-                    NameLast = randomLastName,
+                    MarkerWord = listOfWords.RandomElement() + listOfWords.RandomElement(),
+                    NameFirst = listOfFirstNames.RandomElement(),                
+                    NameLast = listOfLastNames.RandomElement()
                 });
             }
 

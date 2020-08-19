@@ -10,17 +10,15 @@ namespace UserGenerator.Helpers
     {
         internal static IEnumerable<string> GetModifierWordList(string path)
         {
-
-            // I just don't want contractions. This may impact some unusual words?
             Console.WriteLine("Looking for wordlist at: " + path);
 
+            // I just don't want contractions. This may impact some unusual words?
             IEnumerable<string> linesLambda = File.ReadLines(path).Where(line => !line.Contains(@"'") );
 
             return linesLambda;
 
             //Could be reduced to this 
             //return File.ReadLines(path).Where(line => !line.Contains(@"'") );
-
         }
     }
 }
